@@ -1,0 +1,25 @@
+@use "../../styles/variables.scss" as *;
+
+.wrapper {
+  display: flex;
+}
+
+.actionsButton {
+  all: unset;
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    fill: $color-primary;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}

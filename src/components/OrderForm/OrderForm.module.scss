@@ -1,0 +1,26 @@
+@use "../../styles/variables" as *;
+
+.gpsButton {
+  all: unset;
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: $color-primary;
+  }
+}
+
+.addressWrapper {
+  position: relative;
+}

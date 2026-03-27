@@ -1,0 +1,55 @@
+@use "../../styles/variables.scss" as *;
+
+.colorBox {
+  all: unset;
+  box-sizing: border-box;
+  background-color: currentColor;
+  border-radius: 4px;
+  width: 30px;
+  height: 24px;
+  border: 2px solid white;
+  box-shadow: 0 0 4px rgba($color-black, 0.5);
+  cursor: pointer;
+}
+
+.colorPicker {
+  overflow: hidden;
+
+  :global {
+    .react-colorful__saturation {
+      border-radius: 4px 4px 0 0;
+    }
+
+    .react-colorful__hue {
+      height: 16px;
+      border-radius: 0 0 4px 4px;
+    }
+
+    .react-colorful__saturation-pointer,
+    .react-colorful__hue-pointer {
+      width: 14px;
+      height: 14px;
+      border-width: 1px;
+    }
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.actionsButton {
+  all: unset;
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    fill: $color-primary;
+  }
+}

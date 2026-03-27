@@ -1,0 +1,80 @@
+@use "../../styles/variables" as *;
+
+.wrapper {
+  position: relative;
+  display: inline-flex;
+}
+
+.priority {
+  all: unset;
+  @include text-small;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 2px;
+  padding-right: 4px;
+  margin-left: -4px;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 0 2px rgba($color-black, 0.3);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &[disabled] {
+    pointer-events: none;
+  }
+
+  svg {
+    flex: 0 0 24px;
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+  }
+
+  &.selected {
+    background-color: rgba($color-primary, 0.1);
+  }
+
+  &.priority-0 {
+    color: $color-gray;
+  }
+
+  &.priority-1 {
+    color: $color-dark;
+  }
+
+  &.priority-2 {
+    color: $color-warning;
+  }
+
+  &.priority-3 {
+    color: $color-danger;
+  }
+}
+
+.priorityDropdown {
+  position: absolute;
+  top: -4px;
+  left: 0;
+  background-color: $color-white;
+  border-radius: 2px;
+  padding: 4px 4px 4px 8px;
+  margin-left: -8px;
+  box-shadow: 0 0 5px rgba($color-black, 0.5);
+  z-index: 10;
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+
+    li {
+      white-space: nowrap;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+@use "../../styles/variables" as *;
+
+.card {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 10px rgba($color-black, 0.1);
+  padding: 10px;
+  border-radius: 4px;
+  background-color: $color-white;
+  color: $color-black;
+}

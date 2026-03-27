@@ -1,0 +1,141 @@
+@use "../../styles/variables" as *;
+
+.field {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+
+  &:hover svg {
+    fill: $color-dark;
+  }
+
+  svg {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    transition: 0.2s;
+    fill: $color-gray-lighten-1;
+  }
+
+  &.withIcon .input {
+    padding-left: 38px;
+  }
+
+  &.clearable .input {
+    padding-right: 30px;
+  }
+}
+
+.input {
+  all: unset;
+  box-sizing: border-box;
+  @include text-base;
+  line-height: 24px;
+  text-align: left;
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid $color-gray-lighten-1;
+  padding: 4px 10px;
+  transition: 0.2s;
+  cursor: text;
+
+  &[type="datetime-local"] {
+    cursor: pointer;
+  }
+
+  &:hover {
+    border-color: $color-dark;
+
+    &:not(:focus)::placeholder {
+      color: $color-dark;
+    }
+  }
+
+  &:focus {
+    border-color: $color-primary;
+
+    & + svg {
+      fill: $color-primary;
+    }
+  }
+
+  &:disabled {
+    color: $color-gray;
+    cursor: not-allowed;
+  }
+
+  &:not([value=""]):not(:focus) {
+    border-color: $color-dark;
+
+    & + svg {
+      fill: $color-dark;
+    }
+  }
+
+  &::placeholder {
+    transition: 0.2s;
+    color: $color-gray;
+  }
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+  }
+}
+
+.clear {
+  all: unset;
+  box-sizing: border-box;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 6px;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  color: $color-dark;
+  cursor: pointer;
+
+  &::before {
+    content: "\00d7";
+    font-size: 24px;
+    line-height: 1;
+  }
+}
+
+.field {
+  &.medium {
+    svg {
+      left: 16px;
+    }
+
+    .input {
+      height: 41px;
+      padding: 8px 16px;
+    }
+
+    &.withIcon .input {
+      padding-left: 44px;
+    }
+
+    &.clearable .input {
+      padding-right: 30px;
+    }
+  }
+
+  &.invalid .input {
+    border-color: $color-danger;
+    color: $color-danger;
+
+    &::placeholder {
+      color: $color-danger;
+    }
+  }
+}

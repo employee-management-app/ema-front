@@ -1,0 +1,17 @@
+export const getOrders = (state) => state.orders;
+export const getOrdersTotal = (state) => state.ordersTotal;
+export const getCompletedOrders = (state) => state.completedOrders;
+export const getOrder = (state) => state.order;
+export const getOrderToEdit = (state) => state.orderToEdit;
+export const getOrderToDuplicate = (state) => state.orderToDuplicate;
+export const getEmployees = (state) => state.employees;
+export const getEmployee = (state) => state.employee;
+export const getCompany = (state) => state.company;
+export const getManagers = (state) => state.managers;
+export const getManager = (state) => state.manager;
+export const getCompanies = (state) => state.companies;
+export const getNotifications = (state) => state.notifications;
+export const getIsModalVisible = (modal) => (state) => state.visibleModals.includes(modal);
+export const getIsDrawerVisible = (drawer) => (state) => state.visibleDrawers.includes(drawer);
+export const getOverlapOrders = (state) => state.overlapOrders;
+export const getOverlapOrder = (state) => state.overlapOrder;

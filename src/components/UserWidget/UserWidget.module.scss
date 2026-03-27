@@ -1,0 +1,29 @@
+@use "../../styles/variables" as *;
+
+.widget {
+  display: inline-block;
+}
+
+.user {
+  all: unset;
+  @include text-base;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid $color-primary;
+  border-radius: 50%;
+  color: $color-primary;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+@include breakpoint-up("sm") {
+  .user {
+    @include text-medium;
+    width: 40px;
+    height: 40px;
+  }
+}

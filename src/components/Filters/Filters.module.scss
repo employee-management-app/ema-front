@@ -1,0 +1,41 @@
+@use "../../styles/variables" as *;
+
+.button {
+  all: unset;
+  box-sizing: border-box;
+  position: relative;
+  @include text-medium;
+  display: flex;
+  font-weight: 500;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.count {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  border-radius: 50%;
+  background-color: $color-primary;
+  color: $color-white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+@include breakpoint-down("lg") {
+  .label {
+    display: none;
+  }
+}

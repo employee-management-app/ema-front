@@ -1,0 +1,106 @@
+@use "../../styles/variables" as *;
+
+.button {
+  all: unset;
+  @include focusable;
+  @include text-base;
+  line-height: 24px;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 2px rgb($color-black, 0.02);
+  border: 1px solid $color-gray-lighten-1;
+  padding: 4px 10px;
+  border-radius: 3px;
+  transition: 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $color-primary;
+    color: $color-primary;
+    box-shadow: none;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  svg {
+    flex: 0 0 24px;
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+  }
+
+  svg + .text {
+    margin-left: 4px;
+  }
+
+  &.full {
+    width: 100%;
+  }
+
+  &.danger,
+  &.success {
+    color: $color-white;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+
+  &.danger {
+    background-color: $color-danger;
+    border-color: $color-danger;
+
+    &:hover {
+      color: $color-danger;
+    }
+  }
+
+  &.success {
+    background-color: $color-success;
+    border-color: $color-success;
+
+    &:hover {
+      color: $color-success;
+    }
+  }
+
+  &.medium {
+    padding: 8px 16px;
+  }
+
+  &.disabled {
+    color: $color-gray;
+    cursor: not-allowed;
+
+    &:hover {
+      border-color: $color-gray-lighten-1;
+    }
+
+    * {
+      pointer-events: none;
+    }
+  }
+
+  &.loading {
+    cursor: progress;
+
+    * {
+      pointer-events: none;
+    }
+
+    svg {
+      animation: spinner 1s infinite;
+    }
+  }
+}
+
+.text {
+  overflow: hidden;
+  white-space: pre;
+  text-overflow: ellipsis;
+}

@@ -1,0 +1,26 @@
+@use "../../styles/variables" as *;
+
+.tooltip {
+  @include text-base;
+  transform-origin: center center;
+  min-width: 30px;
+  min-height: 32px;
+  color: $color-white;
+  text-align: left;
+  overflow-wrap: break-word;
+  background-color: rgba($color-black, 0.8);
+  padding: 6px 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 1000;
+  max-width: 300px;
+  will-change: top, left, width, height, transform !important;
+
+  a {
+    color: white;
+  }
+
+  @media (hover: none) {
+    opacity: 0;
+  }
+}

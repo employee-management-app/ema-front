@@ -1,0 +1,76 @@
+@use "../../styles/variables" as *;
+
+.label {
+  @include text-base;
+  line-height: 24px;
+  text-align: left;
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid $color-gray-lighten-1;
+  padding: 4px 10px;
+  transition: 0.2s;
+  position: relative;
+  cursor: pointer;
+
+  &:hover:not(.invalid) {
+    border-color: $color-dark;
+
+    .placeholder {
+      color: $color-dark;
+    }
+  }
+
+  &:has(.value) {
+    border-color: $color-dark;
+  }
+}
+
+.placeholder {
+  transition: 0.2s;
+  color: $color-gray;
+}
+
+.input {
+  all: unset;
+  width: 0;
+  height: 0;
+}
+
+.invalid {
+  border-color: $color-danger;
+  color: $color-danger;
+
+  .placeholder {
+    color: $color-danger;
+  }
+}
+
+.clear {
+  all: unset;
+  box-sizing: border-box;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 6px;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  color: $color-dark;
+  cursor: pointer;
+
+  &::before {
+    content: "\00d7";
+    font-size: 24px;
+    line-height: 1;
+  }
+}
+
+.preview {
+  margin-top: 10px;
+  box-shadow: 0 0 10px rgba($color-black, 0.2);
+  padding: 4px;
+  border-radius: 4px;
+  object-fit: contain;
+}

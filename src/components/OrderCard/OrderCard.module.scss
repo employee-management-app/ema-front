@@ -1,0 +1,91 @@
+@use "../../styles/variables" as *;
+
+.card {
+  position: relative;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.date {
+  @include text-small;
+
+  color: $color-primary;
+  transition: 0.2s padding ease-in-out;
+}
+
+.card .date {
+  padding-right: 30px;
+}
+
+.actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 24px;
+  height: 24px;
+  transform: scale(1) rotate(0);
+  transition: 0.2s all ease-in-out;
+}
+
+.stage {
+  @include text-large;
+
+  width: fit-content;
+  font-weight: 600;
+  color: $color-dark;
+}
+
+.hr {
+  border: none;
+  height: 1px;
+  background-color: $color-gray-lighten-2;
+  margin: 10px 0;
+
+  &.small {
+    margin: 5px 0;
+
+    @include breakpoint-down("md") {
+      display: none;
+    }
+  }
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: flex-end;
+  flex: 1;
+}
+
+@include breakpoint-up("md") {
+  .card .date {
+    padding-right: 0;
+  }
+
+  .card .actions {
+    transform: scale(0.5) rotate(90deg);
+    opacity: 0;
+  }
+
+  .card:hover .actions,
+  .card .actions:global(.active) {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+  }
+
+  .card:hover .date,
+  .actions:global(.active) + .date {
+    padding-right: 30px;
+  }
+}

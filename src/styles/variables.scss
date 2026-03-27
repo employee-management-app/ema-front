@@ -1,0 +1,195 @@
+@use "sass:map";
+
+// Colors
+
+$color-primary: #1352A1;
+$color-primary-lighten-1: #BBD5F7;
+
+$color-white: #FFFFFF;
+$color-black: #000000;
+$color-dark: #212121;
+
+$color-success: #16CB77;
+$color-warning: #FF9900;
+$color-danger: #FF0000;
+
+$color-gray: #AAAAAA;
+$color-gray-lighten-1: #C7C7C7;
+$color-gray-lighten-2: #E1E1E1;
+$color-gray-lighten-3: #F5F5F5;
+
+// Font sizes
+
+@mixin text-small {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+@mixin text-base {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+@mixin text-medium {
+  font-size: 16px;
+  line-height: 22px;
+}
+
+@mixin text-large {
+  font-size: 18px;
+  line-height: 24px;
+}
+
+@mixin text-big {
+  font-size: 20px;
+  line-height: 28px;
+}
+
+@mixin text-h3 {
+  font-size: 22px;
+  line-height: 30px;
+}
+
+@mixin text-h2 {
+  font-size: 24px;
+  line-height: 32px;
+}
+
+@mixin text-h1 {
+  font-size: 30px;
+  line-height: 40px;
+}
+
+// Breakpoints
+
+$breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+);
+
+@function breakpoint-next($name) {
+  $breakpoint-names: map-keys($breakpoints);
+  $n: index($breakpoint-names, $name);
+
+  @if not $n {
+    @error "breakpoint `#{$name}` not found in `#{$breakpoints}`";
+  }
+
+  @return if($n < length($breakpoint-names), nth($breakpoint-names, $n + 1), null);
+}
+
+@function breakpoint-min($name) {
+  $min: map-get($breakpoints, $name);
+
+  @return if($min != 0, $min, null);
+}
+
+@function breakpoint-max($name) {
+  $max: map-get($breakpoints, $name);
+
+  @return if($max and $max > 0, $max - 0.02, null);
+}
+
+@function breakpoint-infix($name) {
+  @return if(breakpoint-min($name) == null, "", "-#{$name}");
+}
+
+@mixin breakpoint-up($name) {
+  $min: breakpoint-min($name);
+
+  @if $min {
+    @media (min-width: $min) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+@mixin breakpoint-down($name) {
+  $max: breakpoint-max($name);
+
+  @if $max {
+    @media (max-width: $max) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+@mixin breakpoint-between($lower, $upper) {
+  $min: breakpoint-min($lower);
+  $max: breakpoint-max($upper);
+
+  @if $min != null and $max != null {
+    @media (min-width: $min) and (max-width: $max) {
+      @content;
+    }
+  } @else if $max == null {
+    @include breakpoint-up($lower) {
+      @content;
+    }
+  } @else if $min == null {
+    @include breakpoint-down($upper) {
+      @content;
+    }
+  }
+}
+
+@mixin breakpoint-only($name) {
+  $min: breakpoint-min($name);
+  $next: breakpoint-next($name);
+  $max: breakpoint-max($next);
+
+  @if $min != null and $max != null {
+    @media (min-width: $min) and (max-width: $max) {
+      @content;
+    }
+  } @else if $max == null {
+    @include breakpoint-up($name) {
+      @content;
+    }
+  } @else if $min == null {
+    @include breakpoint-down($next) {
+      @content;
+    }
+  }
+}
+
+// Container
+
+$safe-area-inset-bottom: calc(env(safe-area-inset-bottom) / 2);
+$container-width: 1250px;
+$page-bottom-padding: calc(70px + $safe-area-inset-bottom);
+
+:root {
+  --container-padding: 20px;
+  --header-height: 72px;
+}
+
+@include breakpoint-down("sm") {
+  :root {
+    --container-padding: 10px;
+    --header-height: 54px;
+  }
+}
+
+// Keyframes
+
+@keyframes spinner {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Focus styles
+
+@mixin focusable {
+  &:focus-visible {
+    outline: 2px solid rgba($color-primary, 0.5);
+  }
+}

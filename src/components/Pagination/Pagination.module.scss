@@ -1,0 +1,88 @@
+@use "../../styles/variables" as *;
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 0 0 10px;
+  gap: 2px;
+}
+
+.button {
+  all: unset;
+  box-sizing: border-box;
+  @include text-small;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 4px;
+  padding: 7px;
+  border: 1px solid transparent;
+  min-width: 32px;
+  transition: 0.1s ease-in-out;
+  cursor: pointer;
+  @include focusable;
+
+  &:hover:not(.active):not(:disabled) {
+    border-color: $color-gray-lighten-1;
+  }
+
+  &:disabled {
+    cursor: default;
+  }
+
+  &.active {
+    background-color: $color-primary;
+    color: $color-white;
+    font-weight: 600;
+  }
+}
+
+.button.arrow {
+  padding: 2px;
+  gap: 2px;
+
+  svg {
+    width: 24px;
+    height: 24px;
+    fill: $color-dark;
+  }
+
+  &:disabled svg {
+    fill: $color-gray;
+  }
+
+  &:last-child svg {
+    transform: rotate(180deg);
+  }
+}
+
+.button.dots {
+  color: $color-gray;
+  cursor: default;
+
+  &:not(.active):not(:disabled):hover {
+    border-color: transparent;
+  }
+}
+
+@include breakpoint-up("sm") {
+  .wrapper {
+    gap: 6px;
+  }
+
+  .button {
+    @include text-base;
+    min-width: 36px;
+  }
+
+  .button.arrow {
+    padding: 4px;
+  }
+}
+
+@include breakpoint-up("md") {
+  .wrapper {
+    padding: 20px 0 0;
+  }
+}

@@ -1,0 +1,40 @@
+@use "sass:math";
+@use "../../styles/variables" as *;
+
+.grid {
+  display: inline-flex;
+  flex-wrap: wrap;
+  width: 100%;
+
+  @each $breakpoint, $_ in $breakpoints {
+    @include breakpoint-up($breakpoint) {
+      @for $i from 1 through 12 {
+        .#{$breakpoint}#{$i} {
+          display: block;
+          flex: 0 1 auto;
+          width: math.percentage(math.div($i, 12));
+        }
+      }
+
+      .#{$breakpoint}0 {
+        display: none;
+        flex: 0 1 auto;
+      }
+
+      .#{$breakpoint}auto {
+        display: block;
+        width: auto;
+        flex: 0 1 auto;
+      }
+
+      .#{$breakpoint}fluid {
+        display: block;
+        flex: 1;
+      }
+    }
+  }
+
+  .filled > * {
+    height: 100%;
+  }
+}

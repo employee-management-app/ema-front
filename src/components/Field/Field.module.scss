@@ -1,0 +1,28 @@
+@use "../../styles/variables" as *;
+
+.wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%
+}
+
+.label,
+.error {
+  @include text-small;
+  display: inline-block;
+  text-align: left;
+  width: 100%;
+}
+
+.label {
+  display: block;
+  font-weight: 500;
+  color: $color-primary;
+}
+
+.error {
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 0;
+  color: $color-danger;
+}

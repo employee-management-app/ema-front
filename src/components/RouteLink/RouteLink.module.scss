@@ -1,0 +1,22 @@
+@use "../../styles/variables" as *;
+
+.routeLink {
+  @include text-small;
+
+  display: inline-flex;
+  align-items: center;
+  color: $color-primary;
+  text-decoration: none;
+  width: fit-content;
+
+  span {
+    border-bottom: 1px solid $color-primary;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+    margin-left: 4px;
+    fill: currentColor;
+  }
+}

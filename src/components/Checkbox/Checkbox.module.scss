@@ -1,0 +1,58 @@
+@use "../../styles/variables" as *;
+
+.field {
+  @include text-base;
+
+  position: relative;
+  display: inline-flex;
+  user-select: none;
+  cursor: pointer;
+
+  &::before {
+    content: "";
+    display: inline-block;
+    flex: 0 0 16px;
+    width: 16px;
+    height: 16px;
+    border: 1px solid $color-dark;
+    border-radius: 3px;
+    margin-right: 6px;
+  }
+
+  &.checked {
+    &::before {
+      border-color: $color-primary;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      display: inline-block;
+      top: 5px;
+      left: 5px;
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+      background-color: $color-primary;
+    }
+  }
+
+  &.invalid {
+    color: $color-danger;
+
+    &::before {
+      border-color: $color-danger;
+    }
+
+    &::after {
+      background-color: $color-danger;
+    }
+  }
+}
+
+.input {
+  all: unset;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}

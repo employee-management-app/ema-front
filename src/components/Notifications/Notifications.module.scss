@@ -1,0 +1,101 @@
+@use "../../styles/variables" as *;
+
+.notifications {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding: var(--container-padding) var(--container-padding) $page-bottom-padding;
+  pointer-events: none;
+  z-index: 200;
+}
+
+.notification {
+  @include text-medium;
+  line-height: 24px;
+  position: relative;
+  display: flex;
+  background-color: $color-white;
+  max-width: calc(100vw - 40px);
+  width: 500px;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba($color-black, 0.2);
+  transition: 0.4s;
+  pointer-events: all;
+
+  > svg {
+    height: 24px;
+    flex: 0 0 24px;
+    margin-right: 14px;
+  }
+
+  & + & {
+    margin-top: 20px;
+  }
+
+  &.info {
+    fill: $color-primary;
+    border-left: 3px solid $color-primary;
+  }
+
+  &.success {
+    fill: $color-success;
+    border-left: 3px solid $color-success;
+  }
+
+  &.error {
+    fill: $color-danger;
+    border-left: 3px solid $color-danger;
+  }
+
+  &.warning {
+    fill: $color-warning;
+    border-left: 3px solid $color-warning;
+  }
+}
+
+@include breakpoint-up("md") {
+  .notifications {
+    padding: var(--container-padding);
+  }
+}
+
+:global(.enter).notification {
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+:global(.enter-active).notification {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+:global(.exit).notification {
+  opacity: 1;
+}
+
+:global(.exit-active).notification {
+  opacity: 0;
+}
+
+.closeButton {
+  all: unset;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+
+  svg {
+    width: 100%;
+    fill: currentColor;
+  }
+}
+
+.action {
+  margin-top: 10px;
+}

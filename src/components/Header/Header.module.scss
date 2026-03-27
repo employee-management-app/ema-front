@@ -1,0 +1,135 @@
+@use "../../styles/variables" as *;
+
+$header-padding: 16px;
+
+.header {
+  z-index: 10;
+  box-shadow: 0 0 6px rgba($color-black, 0.2);
+  padding: 16px 0;
+  background-color: $color-white;
+  height: var(--header-height);
+}
+
+.logo {
+  display: flex;
+  text-decoration: none;
+  width: 140px;
+  height: 36px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.menu {
+  display: flex;
+  margin: 0;
+  margin-bottom: -16px;
+  padding: 0;
+  list-style: none;
+}
+
+.menuItem {
+  &:not(:first-child) {
+    margin-left: 36px;
+  }
+
+  a {
+    @include text-medium;
+    display: inline-block;
+    color: $color-dark;
+    text-decoration: none;
+    padding: 0 10px;
+    padding-bottom: 14px;
+    border-bottom: 8px solid transparent;
+
+    &:hover {
+      border-color: rgba($color-primary, 0.3);
+    }
+
+    &.activeLink {
+      border-color: $color-primary;
+      font-weight: bold;
+    }
+  }
+}
+
+.mobileNav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: $color-gray-lighten-3;
+  box-shadow: 0 0 6px rgba($color-black, 0.2);
+  z-index: 100;
+}
+
+.mobileMenu {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.mobileMenuItem {
+  flex: 1;
+
+  a {
+    @include text-small;
+    font-weight: 500;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    justify-content: center;
+    text-decoration: none;
+    padding: 10px 4px calc(10px + $safe-area-inset-bottom) 4px;
+    width: 100%;
+    color: $color-dark;
+
+    svg {
+      flex: 0 0 20px;
+      width: 20px;
+      height: 20px;
+      fill: $color-dark;
+    }
+
+    &.activeLink {
+      background-color: $color-primary;
+      color: $color-white;
+
+      svg {
+        fill: currentColor;
+      }
+    }
+  }
+}
+
+@include breakpoint-down("md") {
+  .nav {
+    justify-content: space-between;
+  }
+
+  .menu {
+    display: none;
+  }
+
+  .mobileNav {
+    display: block;
+  }
+}
+
+@include breakpoint-down("sm") {
+  .header {
+    padding: 10px 0;
+  }
+
+  .logo {
+    width: 120px;
+    height: 28px;
+  }
+}

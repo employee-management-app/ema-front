@@ -1,0 +1,44 @@
+@use "../../styles/variables" as *;
+
+.button {
+  all: unset;
+  position: fixed;
+  bottom: calc($page-bottom-padding + 10px);
+  right: calc(var(--container-padding) + 10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: $color-white;
+  box-shadow: 0 0 5px rgba($color-black, 0.3);
+  transition: 0.15s box-shadow ease-in-out, 0.5s opacity ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 0 10px rgba($color-black, 0.3);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  svg {
+    width: 60%;
+    height: 60%;
+    fill: $color-primary;
+  }
+
+  &.hidden {
+    opacity: 0;
+  }
+}
+
+@include breakpoint-up("md") {
+  .button {
+    bottom: 30px;
+    width: 50px;
+    height: 50px;
+  }
+}
