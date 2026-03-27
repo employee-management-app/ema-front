@@ -17,9 +17,9 @@ v10.x.x
 
 ## Deployments
 
-- `master` branch deploys automatically when new changes are committed on this url:
+- `main` branch deploys automatically when new changes are committed on this url:
 
-   todo
+   https://ema-front-iota.vercel.app/
 
 ## To run application locally:
 
@@ -51,7 +51,7 @@ REACT_APP_GOOGLE_MAPS_ID=
 ema-front> npm i
 ```
 
-5. Run `npm start`:
+5. Run `npm run start`:
 
 ```
 ema-front> npm start
