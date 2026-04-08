@@ -16,6 +16,7 @@ export const UploadInput = ({ accept = 'image/*', placeholder = 'Upload file', i
         theme: 'warning',
         content: 'File size is too large. Please upload a file smaller than 10MB.',
       });
+      e.target.value = '';
 
       return;
     }
