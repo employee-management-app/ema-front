@@ -4,9 +4,11 @@ import { useDispatch } from 'react-redux';
 import { useForm } from '../../hooks/useForm';
 import { updateManager as updateManagerInStore } from '../../store';
 import { useNotification } from '../../hooks/useNotification';
+import { createPhoneValidationTest } from '../../utils/phoneValidation';
 import { Grid, GridEl, SPACES } from '../Grid';
 import { Field } from '../Field';
 import { Input } from '../Input';
+import { PhoneNumberField } from '../PhoneNumberField';
 import { Button } from '../Button';
 import { updateManager } from '../../services/updateManager';
 import { Checkbox } from '../Checkbox';
@@ -43,7 +45,10 @@ export const EditManagerForm = ({ manager, onSuccess }) => {
     },
     phone: {
       value: manager.phone,
-      validation: yup.string().min(6).max(100).required(),
+      validation: yup
+        .string()
+        .required('Phone number is required')
+        .test(createPhoneValidationTest()),
     },
     isOwner: {
       value: manager.role === 'owner',
@@ -68,7 +73,7 @@ export const EditManagerForm = ({ manager, onSuccess }) => {
 
     setIsLoading(true);
 
-    updateManager(manager._id, fields)
+    updateManager(manager._id, { ...fields })
       .then((data) => {
         onSuccess?.();
         dispatch(updateManagerInStore(data));
@@ -118,10 +123,10 @@ export const EditManagerForm = ({ manager, onSuccess }) => {
             </GridEl>
             <GridEl size="6">
               <Field label="Phone" error={errors.phone}>
-                <Input
+                <PhoneNumberField
                   value={fields.phone}
-                  placeholder="Phone"
                   onChange={(e) => onFieldChange(e, 'phone')}
+                  country="PL"
                 />
               </Field>
             </GridEl>
@@ -144,7 +149,7 @@ export const EditManagerForm = ({ manager, onSuccess }) => {
           </Grid>
         </GridEl>
         <GridEl size="12">
-          <Button type="submit" loading={isLoading}>
+          <Button type="submit" loading={isLoading} disabled={!isValid}>
             Update account
           </Button>
         </GridEl>
