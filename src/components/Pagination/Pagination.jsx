@@ -84,7 +84,7 @@ export const Pagination = ({ limit = 9, total = 0, offset = 0, onChange }) => {
       )))}
       <button
         type="button"
-        disabled={currentPage * limit > total}
+        disabled={currentPage * limit >= total}
         className={cx(styles.button, styles.arrow)}
         onClick={handleClick(currentPage + 1)}
       >
