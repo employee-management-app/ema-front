@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useQueryParam, NumberParam, withDefault } from 'use-query-params';
 
 import { Container } from '../components/Container';
 import { Grid, GridEl, SPACES } from '../components/Grid';
@@ -16,10 +17,11 @@ import { getCompletedOrders, setCompletedOrders } from '../store';
 import { Filters } from '../components/Filters';
 import { Pagination } from '../components/Pagination';
 import { useFilters } from '../hooks/useFilters';
+import { useUpdateEffect } from '../hooks/useUpdateEffect';
 import { ReactComponent as SearchIcon } from '../assets/icons/search.svg';
 
 export const Completed = () => {
-  const [offset, setOffset] = React.useState(0);
+  const [offset, setOffset] = useQueryParam('offset', withDefault(NumberParam, 0));
   const [total, setTotal] = React.useState(0);
   const [search, setSearch] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(false);
@@ -61,23 +63,27 @@ export const Completed = () => {
 
   const handleSearchChange = React.useCallback((e) => {
     setSearch(e.target.value);
-    setOffset(0);
-    debouncedFetchData();
-  }, [debouncedFetchData]);
+    setOffset(0, 'pushIn');
+    debouncedFetchData(0);
+  }, [debouncedFetchData, setOffset]);
 
   const handleSearchClear = React.useCallback(() => {
     setSearch('');
-    setOffset(0);
-    debouncedFetchData();
-  }, [debouncedFetchData]);
+    setOffset(0, 'pushIn');
+    debouncedFetchData(0);
+  }, [debouncedFetchData, setOffset]);
 
   const handleOffsetChange = React.useCallback((newOffset) => {
-    setOffset(newOffset);
+    setOffset(newOffset, 'pushIn');
     fetchData(newOffset);
   }, [fetchData]);
 
   React.useEffect(() => {
-    setOffset(0);
+    fetchData(offset); // Initial fetch takes the offset from the url "?offset=X"
+  }, []);
+
+  useUpdateEffect(() => {
+    setOffset(0, 'pushIn');
     fetchData(0);
   }, [filters]);
 
