@@ -112,7 +112,10 @@ export const Completed = () => {
               <Filters />
             </GridEl>
             <GridEl size="12">
-              {isLoading ? <Spinner /> : <OrdersList disabled orders={orders} />}
+              <div style={{ position: 'relative' }}>
+                {isLoading && <Spinner overlay={!!orders.length} />}
+                {isLoading && !orders.length || <OrdersList disabled={isLoading} orders={orders} />}
+              </div>
             </GridEl>
             <GridEl size="12">
               <Pagination offset={(page - 1) * PAGE_SIZE} limit={PAGE_SIZE} total={total} onChange={handlePageChange} />
