@@ -149,7 +149,7 @@ export const EditManagerForm = ({ manager, onSuccess }) => {
           </Grid>
         </GridEl>
         <GridEl size="12">
-          <Button type="submit" loading={isLoading} disabled={!isValid}>
+          <Button type="submit" loading={isLoading}>
             Update account
           </Button>
         </GridEl>

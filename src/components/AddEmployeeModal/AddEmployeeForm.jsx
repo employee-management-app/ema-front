@@ -119,7 +119,7 @@ export const AddEmployeeForm = ({ onSuccess }) => {
           </Grid>
         </GridEl>
         <GridEl size="12">
-          <Button type="submit" loading={isLoading} disabled={!isValid}>
+          <Button type="submit" loading={isLoading}>
             Invite
           </Button>
         </GridEl>

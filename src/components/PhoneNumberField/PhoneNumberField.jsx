@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PhoneInput from 'react-phone-number-input';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 import 'react-phone-number-input/style.css';
@@ -30,7 +30,7 @@ export const PhoneNumberField = React.forwardRef((props, ref) => {
     handleChangeCallback(newValue);
   };
 
-  const currentCountry = (() => {
+  const currentCountry = useMemo(() => {
     if (value) {
       try {
         const parsed = parsePhoneNumberFromString(value);
@@ -42,25 +42,25 @@ export const PhoneNumberField = React.forwardRef((props, ref) => {
       }
     }
     return 'PL';
-  })();
+  })[value];
 
   const maxDigits = MAX_DIGITS_BY_COUNTRY[currentCountry];
-
-  let digitCount = 0;
-  let isTooManyDigits = false;
-
-  if (maxDigits && value) {
-    try {
-      const parsed = parsePhoneNumberFromString(value);
-      if (parsed && parsed.nationalNumber) {
-        digitCount = parsed.nationalNumber.toString().length;
+  const digitCount = useMemo(() => {
+    let count = 0;
+    if (maxDigits && value) {
+      try {
+        const parsed = parsePhoneNumberFromString(value);
+        if (parsed && parsed.nationalNumber) {
+          count = parsed.nationalNumber.toString().length;
+        }
+      } catch (error) {
+        count = value.replace(/\D/g, '').length;
       }
-    } catch (error) {
-      digitCount = value.replace(/\D/g, '').length;
     }
-    isTooManyDigits = digitCount > maxDigits;
-  }
+    return count;
+  }, [maxDigits, value]);
 
+  const isTooManyDigits = digitCount > maxDigits;
   return (
     <div className={styles.wrapper}>
       <PhoneInput
