@@ -63,7 +63,7 @@ export const EmployeeTimeline = () => {
             <div className={styles.row}>
               <div className={styles.slots}>
                 {slots.map((slot) => (
-                  <Slot key={slot._id} order={slot} color="#1352A1" />
+                  <Slot key={slot._id} order={slot} color="#2CC590" />
                 ))}
               </div>
             </div>
