@@ -13,11 +13,6 @@ export const PhoneNumberField = React.forwardRef((props, ref) => {
     setValue(props.value || '');
   }, [props.value]);
 
-  const handleChange = (newValue) => {
-    setValue(newValue || '');
-    handleChangeCallback(newValue);
-  };
-
   const handleChangeCallback = (newValue) => {
     if (props.onChange) {
       const event = {
@@ -30,6 +25,11 @@ export const PhoneNumberField = React.forwardRef((props, ref) => {
     }
   };
 
+  const handleChange = (newValue) => {
+    setValue(newValue || '');
+    handleChangeCallback(newValue);
+  };
+
   const currentCountry = (() => {
     if (value) {
       try {
@@ -37,17 +37,18 @@ export const PhoneNumberField = React.forwardRef((props, ref) => {
         if (parsed && parsed.country) {
           return parsed.country;
         }
-      } catch (error) {
+      } catch {
+        return 'PL';
       }
     }
     return 'PL';
   })();
-  
+
   const maxDigits = MAX_DIGITS_BY_COUNTRY[currentCountry];
-  
+
   let digitCount = 0;
   let isTooManyDigits = false;
-  
+
   if (maxDigits && value) {
     try {
       const parsed = parsePhoneNumberFromString(value);
