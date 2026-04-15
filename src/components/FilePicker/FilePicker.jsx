@@ -98,6 +98,7 @@ export const FilePicker = ({ value = [], uploadUrl }) => {
         // todo: push notification
       });
     });
+    e.target.value = '';
   }, [files, uploadUrl, pushNotification]);
 
   const removeFile = React.useCallback((id) => () => {
