@@ -38,7 +38,7 @@ export const Completed = () => {
     const params = {
       status: 'completed',
       offset: _offset,
-      limit: 9,
+      limit: 12,
       ...(search && { search }),
       ...filters,
     };
