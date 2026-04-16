@@ -310,3 +310,27 @@ export const PRIORITY_OPTIONS = [
     value: '0',
   },
 ];
+
+export const ORDER_FILTER_KEYS = [
+  'employee',
+  'stage',
+  'priority',
+  'type',
+  'startDate',
+  'endDate',
+  'unassigned',
+  'unscheduled',
+];
+
+export const ORDER_FILTER_COUNT_EXCLUDED_KEYS = [
+  'endDate',
+  'unassigned',
+  'unscheduled',
+];
+
+export const CUSTOMER_DEFAULT_ORDER_FILTERS = {
+  unassigned: true,
+  unscheduled: true,
+};
+
+export const EMPLOYEE_DEFAULT_ORDER_FILTERS = {};

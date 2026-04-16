@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useQueryParam, NumberParam, withDefault } from 'use-query-params';
 
 import { Container } from '../components/Container';
 import { Grid, GridEl, SPACES } from '../components/Grid';
@@ -16,10 +17,13 @@ import { getCompletedOrders, setCompletedOrders } from '../store';
 import { Filters } from '../components/Filters';
 import { Pagination } from '../components/Pagination';
 import { useFilters } from '../hooks/useFilters';
+import { useUpdateEffect } from '../hooks/useUpdateEffect';
 import { ReactComponent as SearchIcon } from '../assets/icons/search.svg';
 
+const PAGE_SIZE = 12;
+
 export const Completed = () => {
-  const [offset, setOffset] = React.useState(0);
+  const [page, setPage] = useQueryParam('page', withDefault(NumberParam, 1));
   const [total, setTotal] = React.useState(0);
   const [search, setSearch] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(false);
@@ -30,13 +34,13 @@ export const Completed = () => {
   const { pushNotification } = useNotification();
   const { filters } = useFilters();
 
-  const fetchData = React.useCallback((_offset) => {
+  const fetchData = React.useCallback((_page) => {
     setIsLoading(true);
 
     const params = {
       status: 'completed',
-      offset: _offset,
-      limit: 9,
+      offset: (_page - 1) * PAGE_SIZE,
+      limit: PAGE_SIZE,
       ...(search && { search }),
       ...filters,
     };
@@ -61,24 +65,29 @@ export const Completed = () => {
 
   const handleSearchChange = React.useCallback((e) => {
     setSearch(e.target.value);
-    setOffset(0);
-    debouncedFetchData();
-  }, [debouncedFetchData]);
+    setPage(1, 'pushIn');
+    debouncedFetchData(1);
+  }, [debouncedFetchData, setPage]);
 
   const handleSearchClear = React.useCallback(() => {
     setSearch('');
-    setOffset(0);
-    debouncedFetchData();
-  }, [debouncedFetchData]);
+    setPage(1, 'pushIn');
+    debouncedFetchData(1);
+  }, [debouncedFetchData, setPage]);
 
-  const handleOffsetChange = React.useCallback((newOffset) => {
-    setOffset(newOffset);
-    fetchData(newOffset);
-  }, [fetchData]);
+  const handlePageChange = React.useCallback((newOffset) => {
+    const newPage = Math.floor(newOffset / PAGE_SIZE) + 1;
+    setPage(newPage, 'pushIn');
+    fetchData(newPage);
+  }, [fetchData, setPage]);
 
   React.useEffect(() => {
-    setOffset(0);
-    fetchData(0);
+    fetchData(page); // Initial fetch takes the page from the url "?page=X"
+  }, []);
+
+  useUpdateEffect(() => {
+    setPage(1, 'pushIn');
+    fetchData(1);
   }, [filters]);
 
   return (
@@ -103,10 +112,13 @@ export const Completed = () => {
               <Filters />
             </GridEl>
             <GridEl size="12">
-              {isLoading ? <Spinner /> : <OrdersList disabled orders={orders} />}
+              <div style={{ position: 'relative' }}>
+                {isLoading && <Spinner overlay={!!orders.length} />}
+                {!(isLoading && !orders.length) && <OrdersList disabled={isLoading} orders={orders} />}
+              </div>
             </GridEl>
             <GridEl size="12">
-              <Pagination offset={offset} limit={9} total={total} onChange={handleOffsetChange} />
+              <Pagination offset={(page - 1) * PAGE_SIZE} limit={PAGE_SIZE} total={total} onChange={handlePageChange} />
             </GridEl>
           </Grid>
         </GridEl>

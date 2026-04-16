@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { QueryParamProvider } from 'use-query-params';
+import { ReactRouter6Adapter } from 'use-query-params/adapters/react-router-6';
 
 import { AuthProvider } from './AuthContext';
 import { Header } from './components/Header';
@@ -206,13 +208,15 @@ const AppRoutes = () => {
 
 const App = () => (
   <BrowserRouter>
-    <AuthProvider>
-      <Header />
-      <main>
-        <AppRoutes />
-      </main>
-    </AuthProvider>
-    <Notifications />
+    <QueryParamProvider adapter={ReactRouter6Adapter}>
+      <AuthProvider>
+        <Header />
+        <main>
+          <AppRoutes />
+        </main>
+      </AuthProvider>
+      <Notifications />
+    </QueryParamProvider>
   </BrowserRouter>
 );
 
