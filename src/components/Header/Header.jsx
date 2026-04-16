@@ -94,7 +94,7 @@ export const Header = () => {
           <Grid alignItems="flex-end">
             <GridEl size={{ xs: 'fluid', md: '3' }}>
               <Link to="/" className={styles.logo}>
-                <img src={company?.logo ?? logoImage} alt={company?.name ?? 'Employee management app'} />
+                <img src={logoImage} alt="Technik w Terenie" />
               </Link>
             </GridEl>
             <GridEl size={{ xs: 'auto', md: 'fluid' }}>
