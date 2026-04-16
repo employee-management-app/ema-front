@@ -75,7 +75,7 @@ export const OrdersMap = ({ orders, showDateFilter = true }) => {
 
   const getEmployeeColor = React.useCallback(({ assignedEmployee }) => {
     if (isEmployee) {
-      return '#1352A1';
+      return '#2CC590';
     }
 
     if (!assignedEmployee) {

@@ -279,7 +279,7 @@ export const OrderPage = ({ order }) => {
         <GoogleMap
           markers={[{
             id,
-            color: '#1352A1',
+            color: '#2CC590',
             lat,
             lng,
           }]}
