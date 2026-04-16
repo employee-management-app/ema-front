@@ -1,0 +1,10 @@
+echo "Running lint checks before push..."
+
+if ! npm run lint; then
+  echo ""
+  echo "Push blocked: lint errors were found."
+  echo "Fix the ESLint errors above, then try pushing again."
+  exit 1
+fi
+
+echo "Lint passed. Continuing push."

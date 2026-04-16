@@ -114,7 +114,7 @@ export const Completed = () => {
             <GridEl size="12">
               <div style={{ position: 'relative' }}>
                 {isLoading && <Spinner overlay={!!orders.length} />}
-                {isLoading && !orders.length || <OrdersList disabled={isLoading} orders={orders} />}
+                {!isLoading && !!orders.length && <OrdersList disabled={isLoading} orders={orders} />}
               </div>
             </GridEl>
             <GridEl size="12">
