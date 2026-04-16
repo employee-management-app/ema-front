@@ -5,7 +5,7 @@ import {
   CUSTOMER_DEFAULT_ORDER_FILTERS,
   EMPLOYEE_DEFAULT_ORDER_FILTERS,
   ORDER_FILTER_COUNT_EXCLUDED_KEYS,
-  ORDER_FILTER_KEYS
+  ORDER_FILTER_KEYS,
 } from '../consts/order';
 import { useAuth } from './useAuth';
 
