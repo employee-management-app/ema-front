@@ -5,9 +5,11 @@ import { useForm } from '../../hooks/useForm';
 import { updateEmployee as updateEmployeeInStore } from '../../store';
 import { useNotification } from '../../hooks/useNotification';
 import { updateEmployee } from '../../services/updateEmployee';
+import { createPhoneValidationTest } from '../../utils/phoneValidation';
 import { Grid, GridEl, SPACES } from '../Grid';
 import { Field } from '../Field';
 import { Input } from '../Input';
+import { PhoneNumberField } from '../PhoneNumberField';
 import { Button } from '../Button';
 
 export const EditEmployeeForm = ({ employee, onSuccess }) => {
@@ -38,7 +40,10 @@ export const EditEmployeeForm = ({ employee, onSuccess }) => {
     },
     phone: {
       value: employee.phone,
-      validation: yup.string().min(6).max(100).required(),
+      validation: yup
+        .string()
+        .required('Phone number is required')
+        .test(createPhoneValidationTest()),
     },
   }));
 
@@ -55,7 +60,7 @@ export const EditEmployeeForm = ({ employee, onSuccess }) => {
 
     setIsLoading(true);
 
-    updateEmployee(employee._id, fields)
+    updateEmployee(employee._id, { ...fields })
       .then((data) => {
         onSuccess?.();
         dispatch(updateEmployeeInStore(data));
@@ -105,10 +110,10 @@ export const EditEmployeeForm = ({ employee, onSuccess }) => {
             </GridEl>
             <GridEl size="6">
               <Field label="Phone" error={errors.phone}>
-                <Input
+                <PhoneNumberField
                   value={fields.phone}
-                  placeholder="Phone"
                   onChange={(e) => onFieldChange(e, 'phone')}
+                  country="PL"
                 />
               </Field>
             </GridEl>

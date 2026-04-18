@@ -6,9 +6,11 @@ import { getCompany, getEmployees, setEmployees } from '../../store';
 import { useNotification } from '../../hooks/useNotification';
 import { useAuth } from '../../hooks/useAuth';
 import { addEmployee } from '../../services/addEmployee';
+import { createPhoneValidationTest } from '../../utils/phoneValidation';
 import { Grid, GridEl, SPACES } from '../Grid';
 import { Field } from '../Field';
 import { Input } from '../Input';
+import { PhoneNumberField } from '../PhoneNumberField';
 import { Button } from '../Button';
 
 export const AddEmployeeForm = ({ onSuccess }) => {
@@ -41,7 +43,10 @@ export const AddEmployeeForm = ({ onSuccess }) => {
     },
     phone: {
       value: '',
-      validation: yup.string().min(6).max(100).required(),
+      validation: yup
+        .string()
+        .required('Phone number is required')
+        .test(createPhoneValidationTest()),
     },
   }));
 
@@ -104,10 +109,10 @@ export const AddEmployeeForm = ({ onSuccess }) => {
             </GridEl>
             <GridEl size="6">
               <Field error={errors.phone}>
-                <Input
+                <PhoneNumberField
                   value={fields.phone}
-                  placeholder="Phone"
                   onChange={(e) => onFieldChange(e, 'phone')}
+                  country="PL"
                 />
               </Field>
             </GridEl>

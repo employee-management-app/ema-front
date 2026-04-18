@@ -6,9 +6,11 @@ import { getCompany, getManagers, setManagers } from '../../store';
 import { useNotification } from '../../hooks/useNotification';
 import { useAuth } from '../../hooks/useAuth';
 import { addManager } from '../../services/addManager';
+import { createPhoneValidationTest } from '../../utils/phoneValidation';
 import { Grid, GridEl, SPACES } from '../Grid';
 import { Field } from '../Field';
 import { Input } from '../Input';
+import { PhoneNumberField } from '../PhoneNumberField';
 import { Button } from '../Button';
 import { Checkbox } from '../Checkbox';
 
@@ -43,7 +45,10 @@ export const AddManagerForm = ({ onSuccess }) => {
     },
     phone: {
       value: '',
-      validation: yup.string().min(6).max(100).required(),
+      validation: yup
+        .string()
+        .required('Phone number is required')
+        .test(createPhoneValidationTest()),
     },
     isOwner: {
       value: false,
@@ -114,10 +119,10 @@ export const AddManagerForm = ({ onSuccess }) => {
             </GridEl>
             <GridEl size="6">
               <Field error={errors.phone}>
-                <Input
+                <PhoneNumberField
                   value={fields.phone}
-                  placeholder="Phone"
                   onChange={(e) => onFieldChange(e, 'phone')}
+                  country="PL"
                 />
               </Field>
             </GridEl>
